@@ -1,7 +1,8 @@
 /*
 Name: Diyar Yasin
-Date:
-Desc:
+Date: Feb. 10, 020
+Desc: Takes a sentence and determines if it is happy/sad depending on the amount f
+:-) and :-( emoticons present
  */
 package edu.hdsb.gwss.diyar.ics4u.u1;
 
@@ -32,14 +33,33 @@ public class HappyOrSad {
 
         inputText = input.nextLine();
 
-        StringTokenizer st = new StringTokenizer(inputText, ":()");
+        StringTokenizer happy = new StringTokenizer(inputText, ":)");
         
-        while (st.hasMoreTokens()){
-            System.out.println(st.nextToken());
-            //Current problem: I am cutting out the : and () w/ StringTokenizer and I need that to evaluate
+        StringTokenizer sad = new StringTokenizer(inputText, ":(");
+        
+        while (happy.hasMoreTokens()){
+            
+            if (happy.nextToken().equals("-")){
+                happyCount++;
+            }
         }
-
+        
+        while (sad.hasMoreTokens()){
+            if (sad.nextToken().equals("-")){
+                sadCount++;
+            }
+        }
+        
         // OUTPUT
+        if (happyCount > sadCount){
+            System.out.println("It is happy!");
+        }
+        else if (sadCount > happyCount){
+            System.out.println("It is sad!");
+        }
+        else{
+            System.out.println("It is neutral.");
+        }
     }
 
 }
