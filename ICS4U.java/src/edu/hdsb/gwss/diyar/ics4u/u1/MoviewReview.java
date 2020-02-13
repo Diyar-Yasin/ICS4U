@@ -29,53 +29,52 @@ public class MoviewReview {
 
     public static void main(String[] args) throws Exception {
         
-
+        wordReview();
+        
     }
     
-    public static void wordReview(String fileName) throws FileNotFoundException{
+    public static void wordReview() throws FileNotFoundException{
         
         // VARIABLES
-        String currentWord;
-        int score;
-        double scoreCount = 0;
-        int counter = 0;
-        double wordRecurrance = 0;
-        double averageWordScore;
-        String currentLine;
-        String nextLine;
+        double scoreCount = 0, score = 0, wordRecurrance = 0, averageWordScore = 0, counter = 0;
+        String currentWord, currentLine, nextLine;
         
         // OBJECTS
-        Scanner fileReader = new Scanner(fileName);
-
-        // INPUT
+        Scanner fileReader = new Scanner(reviewFile);
+        StringTokenizer st;
         
-        while (fileReader.hasNext()) {
-            
-            scoreCount = 0;
+        // INPUT
+        System.out.println("What word are you searching for? ");
+        currentWord = input.nextLine().toLowerCase();
+        
+        while (fileReader.hasNext()){
             currentLine = fileReader.nextLine();
-       
-            scoreCount = scoreCount + Integer.parseInt(currentLine.substring(0,1));
-            currentWord = currentLine.substring(3, currentLine.length());
-             
-            while(fileReader.hasNext()){
+            st = new StringTokenizer(currentLine, "-, ");
+            counter = 0;
+            score = 0;
+            
+            score = score + Integer.parseInt(st.nextToken());
+            
+            while(st.hasMoreTokens()){
                 
-                nextLine = fileReader.nextLine();
-                
-                if ((currentWord.toLowerCase()).equals((nextLine.toLowerCase()).substring(3, nextLine.length()))){
-                    scoreCount = scoreCount + Integer.parseInt(nextLine.substring(0,1));
-                    wordRecurrance++;
+                if((st.nextToken().toLowerCase()).equals(currentWord)){
+                    counter++;
                 }
             }
             
-            averageWordScore = averageWordScore + score/wordRecurrance; //This needs to be weighted but its not working rn
-            
+            if (counter != 0){
+                wordRecurrance++;
+                scoreCount = scoreCount + score;
+            }
         }
-
+        
         averageWordScore = scoreCount/wordRecurrance;
-
+        
+        System.out.println("It recurrs " + wordRecurrance + " times");
+        System.out.println("With average score of " + averageWordScore);
     }
     
-    public static void sentenceReview() throws FileNotFoundException{
+    public static void sentenceReview() throws Exception{
         
         // VARIABLES
         String fileName;
@@ -85,7 +84,6 @@ public class MoviewReview {
         fileName = input.nextLine();
         
         
-        wordReview(fileName);
     }
 
 }
