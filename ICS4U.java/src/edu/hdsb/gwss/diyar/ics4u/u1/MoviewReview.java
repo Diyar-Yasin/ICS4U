@@ -33,20 +33,18 @@ public class MoviewReview {
 
     }
 
-    public static double wordReview(String currentWord) throws FileNotFoundException {
+    public static double[] wordReview(String currentWord) throws FileNotFoundException {
 
         // VARIABLES
         double scoreCount = 0, score = 0, wordRecurrance = 0, averageWordScore = 0, counter = 0;
         String currentLine;
+        double[] wordValues = new double[2];
 
         // OBJECTS
         Scanner fileReader = new Scanner(reviewFile);
         StringTokenizer st;
 
         // INPUT
-        System.out.println("What word are you searching for? ");
-        currentWord = input.nextLine().toLowerCase();
-
         while (fileReader.hasNext()) {
             currentLine = fileReader.nextLine();
             st = new StringTokenizer(currentLine, "-, ");
@@ -68,18 +66,20 @@ public class MoviewReview {
             }
         }
 
-        averageWordScore = scoreCount / wordRecurrance;
+        wordValues[0] = scoreCount;
+        wordValues[1] = wordRecurrance;
 
-        return averageWordScore;
+        return wordValues;
     }
 
     public static void sentenceReview() throws Exception {
 
         // VARIABLES
         String fileName, currentWord;
-        int i = 0, recurrance;
+        int i = 0;
         String[] sentence;
-        double sentenceScore = 0;
+        double sentenceScore = 0, totalWordScore = 0, totalRecurrance = 0;
+        double[] wordValues = new double[2], wordScores, recurranceScores;
 
         // OBJECTS
         Scanner fileReader;
@@ -88,53 +88,86 @@ public class MoviewReview {
         System.out.println("Input a file name to review: ");
         fileName = input.nextLine();
 
-        fileReader = new Scanner(fileName);
+        File file = new File(".//data//movie.review//" + fileName);
+
+        fileReader = new Scanner(file); //Add an arraylist
 
         while (fileReader.hasNext()) {
+            fileReader.nextLine();
             i++;
         }
 
         sentence = new String[i];
 
-        fileReader = new Scanner(fileName); // Bad way to reset pointer to start of file
+        fileReader = new Scanner(file); // Bad way to reset pointer to start of file, use arraylist
 
         for (int n = 0; fileReader.hasNext(); n++) {
             sentence[n] = fileReader.nextLine().toLowerCase();
         }
+
         // Everything above makes an array with each word in its own memory location
-        
-        for (int n = 0; n < sentence.length; n++){
-            
-            recurrance = 0;
-            currentWord  = sentence[n];
-            
-            for (int x = 0; x < sentence.length; x++){ 
-            //This for loop compares every word with the currentWord so the "weight" of the word can be taKen into account
-                if (currentWord.equals(sentence[x])){
-                    //This means that the word recurs
-                    recurrance++;
-                }
-            }
-            
-            sentenceScore = sentenceScore + recurrance * wordReview(currentWord);  
+        wordScores = new double[sentence.length];
+        recurranceScores = new double[sentence.length];
+
+        for (int n = 0; n < sentence.length; n++) {
+
+            currentWord = sentence[n];
+            wordValues = wordReview(currentWord);
+            wordScores[n] = wordValues[0];
+            recurranceScores[n] = wordValues[1];
         }
-        
-        sentenceScore = sentenceScore/sentence.length;
-        
+
+        for (int n = 0; n < sentence.length; n++) {
+            totalWordScore = totalWordScore + wordScores[n];
+            totalRecurrance = totalRecurrance + recurranceScores[n];
+        }
+
+        sentenceScore = totalWordScore / totalRecurrance;
+
         System.out.println("The average score of words in " + fileName + " is " + sentenceScore);
-        
-        if (sentenceScore > 2.2){
+
+        // OUTPUT
+        if (sentenceScore > 2.2) {
             System.out.println("The overall sentiment is positive!");
-        }
-        else if (sentenceScore < 1.8){
+        } else if (sentenceScore < 1.8) {
             System.out.println("The overall sentiment is negative!");
-        }
-        else{
+        } else {
             System.out.println("The overall sentiment is neutral.");
         }
 
-        
+        maxMinValues(wordScores, recurranceScores, sentence);
+
+    }
+
+    public static void maxMinValues(double[] wordScores, double[] recurranceScores, String[] sentence) {
+
+        // VARIABLES
+        double max = wordScores[0] / recurranceScores[0], min = wordScores[0] / recurranceScores[0];
+        String maxWord = sentence[0], minWord = sentence[0];
+
+        // INPUT
+        // Find the max
+        for (int n = 1; n < wordScores.length; n++) {
+
+            if (max < (wordScores[n] / recurranceScores[n])) {
+                max = wordScores[n] / recurranceScores[n];
+                maxWord = sentence[n];
+            }
+
+        }
+        // Find the min
+        for (int n = 1; n < wordScores.length; n++) {
+
+            if (min > (wordScores[n] / recurranceScores[n])) {
+                min = wordScores[n] / recurranceScores[n];
+                minWord = sentence[n];
+            }
+
+        }
+
+        // OUTPUT
+        System.out.println("The most positive word is " + maxWord + " with a score of " + max);
+        System.out.println("The most negative word is " + minWord + " with a score of " + min);
+
     }
 }
-
-
