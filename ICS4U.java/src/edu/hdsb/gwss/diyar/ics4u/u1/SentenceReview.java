@@ -19,21 +19,12 @@ public class SentenceReview {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-        
+
         // VARIABLES
-        String currentWord, currentLine;
-        double averageScore;
-        int score;
-        File file = new File("simple.txt");
-        
-        // OBJECTS
-        Scanner input = new Scanner(System.in);
-        Scanner reader = new Scanner(file);
-        
-        // INPUT
-        currentLine
-        score = Integer.parseInt(reader.nextLine().substring(0, 1));
-        currentWord = reader
+        int[] array = new int[4];
+
+        System.out.println("The size of "
+                + "the array is "
+                + array.length);
     }
-    
 }
