@@ -6,6 +6,7 @@ package edu.hdsb.gwss.diyar.ics4u.u1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -136,6 +137,7 @@ public class MoviewReview {
         }
 
         maxMinValues(wordScores, recurranceScores, sentence);
+        scoreSort(wordScores, recurranceScores, sentence);
 
     }
 
@@ -169,5 +171,27 @@ public class MoviewReview {
         System.out.println("The most positive word is " + maxWord + " with a score of " + max);
         System.out.println("The most negative word is " + minWord + " with a score of " + min);
 
+    }
+
+    public static void scoreSort(double[] wordScores, double[] recurranceScores, String[] sentence) throws FileNotFoundException {
+
+        // VARIABLES
+        File fileOutputPos = new File(".//data//movie.review//positive.txt");
+        File fileOutputNeg = new File(".//data//movie.review//negative.txt");
+
+        PrintWriter outputPos = new PrintWriter(fileOutputPos);
+        PrintWriter outputNeg = new PrintWriter(fileOutputNeg);
+
+        // INPUT
+        for (int n = 0; n < wordScores.length; n++) {
+            if ((wordScores[n] / recurranceScores[n]) < 1.8) {
+                outputNeg.println(sentence[n]);
+            } else if ((wordScores[n] / recurranceScores[n]) > 2.2) {
+                outputPos.println(sentence[n]);
+            }
+        }
+
+        outputPos.close();
+        outputNeg.close(); //Do i close anything in the other methods? Do I need to?
     }
 }
