@@ -30,7 +30,53 @@ public class MoviewReview {
 
     public static void main(String[] args) throws Exception {
 
-        sentenceReview();
+        // VARIABLES
+        int choice;
+        boolean loop = true;
+        double[] wordValues = new double[2];
+        String currentWord;
+
+        // INPUT
+        while (loop) {
+            System.out.println("\nWhat would you like to do?");
+            System.out.println("1: Get the score of a word");
+            System.out.println("2: Get the average score of words in a file (one word per line)");
+            System.out.println("3: Find the highest or lowest scoring words in a file");
+            System.out.println("4: Sort words from a file into positive.txt and negative.txt");
+            System.out.println("5: Exit the program");
+
+            choice = input.nextInt();
+            input.nextLine();
+            
+            switch (choice) {
+                case 1:
+                    System.out.println("\nWhat is the word you are searching for?");
+                    currentWord = input.nextLine().toLowerCase();
+
+                    wordValues = wordReview(currentWord);
+                    
+                    System.out.println("The word " + currentWord + " appears " + wordValues[1] + " times.");
+                    System.out.println("The average word score is " + wordValues[0]/wordValues[1]);
+                    break;
+
+                case 2:
+                    sentenceReview(choice);
+                    break;
+
+                case 3:
+                    sentenceReview(choice);
+                    break;
+
+                case 4:
+                    sentenceReview(choice);
+                    break;
+
+                case 5:
+                    loop = false;
+                    break;
+
+            }
+        }
 
     }
 
@@ -73,7 +119,7 @@ public class MoviewReview {
         return wordValues;
     }
 
-    public static void sentenceReview() throws Exception {
+    public static void sentenceReview(int choice) throws Exception {
 
         // VARIABLES
         String fileName, currentWord;
@@ -125,19 +171,26 @@ public class MoviewReview {
 
         sentenceScore = totalWordScore / totalRecurrance;
 
-        System.out.println("The average score of words in " + fileName + " is " + sentenceScore);
-
         // OUTPUT
-        if (sentenceScore > 2.2) {
-            System.out.println("The overall sentiment is positive!");
-        } else if (sentenceScore < 1.8) {
-            System.out.println("The overall sentiment is negative!");
-        } else {
-            System.out.println("The overall sentiment is neutral.");
-        }
+        switch (choice) {
+            case 2:
+                System.out.println("The average score of words in " + fileName + " is " + sentenceScore);
 
-        maxMinValues(wordScores, recurranceScores, sentence);
-        scoreSort(wordScores, recurranceScores, sentence);
+                if (sentenceScore > 2.2) {
+                    System.out.println("The overall sentiment is positive!");
+                } else if (sentenceScore < 1.8) {
+                    System.out.println("The overall sentiment is negative!");
+                } else {
+                    System.out.println("The overall sentiment is neutral.");
+                }
+                break;
+            case 3:
+                maxMinValues(wordScores, recurranceScores, sentence);
+                break;
+            case 4:
+                scoreSort(wordScores, recurranceScores, sentence);
+                break;
+        }
 
     }
 
