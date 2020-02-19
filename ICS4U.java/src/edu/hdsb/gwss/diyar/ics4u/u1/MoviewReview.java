@@ -93,7 +93,6 @@ public class MoviewReview {
 
             }
         }
-
     }
 
     public static double[] wordReview(String currentWord) throws FileNotFoundException {
