@@ -5,9 +5,9 @@
  */
 package edu.hdsb.gwss.diyar.ics4u.u1;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -21,10 +21,11 @@ public class SentenceReview {
     public static void main(String[] args) throws FileNotFoundException {
 
         // VARIABLES
-        int[] array = new int[4];
+        ArrayList<String> lol = new ArrayList<>();
+        
+        lol.add("1");
+        lol.add("2");
 
-        System.out.println("The size of "
-                + "the array is "
-                + array.length);
+        System.out.println(Arrays.toString(lol.toArray()));
     }
 }

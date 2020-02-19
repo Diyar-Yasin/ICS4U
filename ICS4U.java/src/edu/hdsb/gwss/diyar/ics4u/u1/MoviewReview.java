@@ -132,7 +132,7 @@ public class MoviewReview {
         File file;
 
         // INPUT
-        System.out.println("Input a file name to review: ");
+        System.out.println("\nInput a file name to review: ");
         fileName = input.nextLine();
 
         file = new File(".//data//movie.review//" + fileName);
@@ -160,18 +160,23 @@ public class MoviewReview {
             totalRecurrance = totalRecurrance + recurranceScores[n];
         }
 
-        sentenceScore = totalWordScore / totalRecurrance;
+        if (totalRecurrance != 0) {
+            sentenceScore = totalWordScore / totalRecurrance;
 
-        // OUTPUT
-        System.out.println("The average score of words in " + fileName + " is " + sentenceScore);
+            // OUTPUT
+            System.out.println("\nhe average score of words in " + fileName + " is " + sentenceScore);
 
-        if (sentenceScore > 2.2) {
-            System.out.println("The overall sentiment is positive!");
-        } else if (sentenceScore < 1.8) {
-            System.out.println("The overall sentiment is negative!");
+            if (sentenceScore > 2.2) {
+                System.out.println("The overall sentiment is positive!");
+            } else if (sentenceScore < 1.8) {
+                System.out.println("The overall sentiment is negative!");
+            } else {
+                System.out.println("The overall sentiment is neutral.");
+            }
         } else {
-            System.out.println("The overall sentiment is neutral.");
+            System.out.println("\nThis file is empty!");
         }
+
     }
 
     public static void maxMinValues() throws FileNotFoundException {
@@ -180,13 +185,14 @@ public class MoviewReview {
         double max, min, check;
         double[] wordValues;
         String maxWord, minWord, fileName, nextWord;
+        ArrayList<String> morePositive = new ArrayList<>(), moreNegative = new ArrayList<>();
 
         // OBJECTS
         Scanner fileReader;
         File file;
 
         // INPUT
-        System.out.println("Input a file name to review: ");
+        System.out.println("\nInput a file name to find max and mins for: ");
         fileName = input.nextLine();
 
         file = new File(".//data//movie.review//" + fileName);
@@ -196,33 +202,61 @@ public class MoviewReview {
         while (wordReview(maxWord)[1] == 0) {
             maxWord = fileReader.nextLine();
         }
-        minWord = maxWord;
 
-        wordValues = wordReview(maxWord);
-        max = wordValues[0] / wordValues[1];
+        if (!fileReader.hasNext()) {
+            System.out.println("No valid data!");
+        } else {
+            minWord = maxWord;
 
-        wordValues = wordReview(minWord);
-        min = wordValues[0] / wordValues[1];
+            wordValues = wordReview(maxWord);
+            max = wordValues[0] / wordValues[1];
 
-        while (fileReader.hasNext()) {
-            nextWord = fileReader.nextLine();
+            wordValues = wordReview(minWord);
+            min = wordValues[0] / wordValues[1];
 
-            wordValues = wordReview(nextWord);
-            check = wordValues[0] / wordValues[1];
+            while (fileReader.hasNext()) {
+                nextWord = fileReader.nextLine();
 
-            if (max < check) {
-                maxWord = nextWord;
-                max = check;
+                wordValues = wordReview(nextWord);
+                check = wordValues[0] / wordValues[1];
+
+                if (max < check) {
+                    maxWord = nextWord;
+                    max = check;
+                }
+                if (min > check) {
+                    minWord = nextWord;
+                    min = check;
+                }
             }
-            if (min > check) {
-                minWord = nextWord;
-                min = check;
+
+            fileReader = new Scanner(file);
+
+            while (fileReader.hasNext()) {
+                nextWord = fileReader.nextLine();
+
+                wordValues = wordReview(nextWord);
+
+                if (wordValues[1] != 0) {
+                    check = wordValues[0] / wordValues[1];
+
+                    if (max == check && !maxWord.equals(nextWord)) {
+                        morePositive.add(nextWord);
+                    }
+                    if (min == check && !minWord.equals(nextWord)) {
+                        moreNegative.add(nextWord);
+                    }
+                }
             }
+
+            // OUTPUT
+            System.out.println("\nThe most positive word is " + maxWord + " with a score of " + max);
+            System.out.println("Other words that are the most positive, with the same score as " + maxWord + " are ");
+            System.out.println(morePositive);
+            System.out.println("The most negative word is " + minWord + " with a score of " + min);
+            System.out.println("Other words that are the most negative, with the same score as " + minWord + " are ");
+            System.out.println(moreNegative);
         }
-
-        // OUTPUT
-        System.out.println("The most positive word is " + maxWord + " with a score of " + max);
-        System.out.println("The most negative word is " + minWord + " with a score of " + min);
 
     }
 
@@ -242,7 +276,7 @@ public class MoviewReview {
         PrintWriter outputNeg = new PrintWriter(fileOutputNeg);
 
         // INPUT
-        System.out.println("Input a file name to review: ");
+        System.out.println("\nInput a file name to sort the words of: ");
         fileName = input.nextLine();
 
         file = new File(".//data//movie.review//" + fileName);
