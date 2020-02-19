@@ -317,19 +317,29 @@ public class MoviewReview {
             }
 
             fileReader = new Scanner(file);
+            //Create a new scanner (effecitvely reset the pointer back to the start of the file to read again)
 
             while (fileReader.hasNext()) {
+                //As long as more lines in the file exist do the following
+                
                 nextWord = fileReader.nextLine();
-
                 wordValues = wordReview(nextWord);
+                //Set the next word to the next line and wordReview it (store the double array in wordValues)
 
                 if (wordValues[1] != 0) {
+                    //If it does not equal 0 that means the next word shows up in MovieReviews.txt
+                    
                     check = wordValues[0] / wordValues[1];
+                    //Set the score of the next word
 
                     if (max == check && !maxWord.equals(nextWord)) {
+                        //If the score of the max value is the same as the next word and they are not the same word that
+                        //means there is more than one max positive word so add it to an array list of max positive words
                         morePositive.add(nextWord);
                     }
                     if (min == check && !minWord.equals(nextWord)) {
+                        //If the score of the min value is the same as the next word and they are not hte same word that
+                        //means there is more than one min word so add it to an array list of negative words
                         moreNegative.add(nextWord);
                     }
                 }
@@ -342,11 +352,14 @@ public class MoviewReview {
             System.out.println("The most negative word is " + minWord + " with a score of " + min);
             System.out.println("Other words that are the most negative, with the same score as " + minWord + " are ");
             System.out.println(moreNegative);
+            //Prints out the maximum words and their score and the minimum words and their score
         }
 
     }
 
     public static void scoreSort() throws FileNotFoundException {
+        //This method takes words from user given file (one word per line) that are > 2.2 and puts them into a positive.txt file
+        //and takes the words that are < 1.8 score and puts them into a negative.txt file, in between words are not put anywhere
 
         // VARIABLES
         double[] wordValues;
@@ -357,32 +370,43 @@ public class MoviewReview {
         File file;
         File fileOutputPos = new File(".//data//movie.review//positive.txt");
         File fileOutputNeg = new File(".//data//movie.review//negative.txt");
+        //Creates two different files with their directories to positive.txt and negative.txt
 
         PrintWriter outputPos = new PrintWriter(fileOutputPos);
         PrintWriter outputNeg = new PrintWriter(fileOutputNeg);
+        //Creates two printwriters (one for positve words, one for negative words)
 
         // INPUT
         System.out.println("\nInput a file name to sort the words of: ");
         fileName = input.nextLine();
+        //Takes the file the user wants to sort 
 
         file = new File(".//data//movie.review//" + fileName);
+        //Creates a new file based on the directory above
         fileReader = new Scanner(file);
+        //Creates a scanner for the file
 
         while (fileReader.hasNext()) {
+            //As long as more lines exist in the users inputted file do the following
 
             currentWord = fileReader.nextLine();
             wordValues = wordReview(currentWord);
+            //Asign the next line as the current word and use wordReview to get the values of the word
+            
             if (wordValues[1] != 0) {
-
+                //If the words recurr in MovieReviews.txt, then they are valid and can be analyzed. If not do nothing and return to menu
                 if (wordValues[0] / wordValues[1] < 1.8) {
+                    //If the score of the current word is below 1.8 write onto negative.txt
                     outputNeg.println(currentWord);
                 } else if (wordValues[0] / wordValues[1] > 2.2) {
+                    //If the score of the current word is above 2.2 write onto positive.txt
                     outputPos.println(currentWord);
                 }
             }
         }
         outputPos.close();
         outputNeg.close();
+        //Close both printwriters and return to the menu
     }
 
 }
