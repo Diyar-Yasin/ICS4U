@@ -34,6 +34,7 @@ public class MoviewReview {
 
         // INPUT
         while (loop) {
+            //As long as the user does not press 5, the while loop will keep asking the below 
             System.out.println("\nWhat would you like to do?");
             System.out.println("1: Get the score of a word");
             System.out.println("2: Get the average score of words in a file (one word per line)");
@@ -42,37 +43,52 @@ public class MoviewReview {
             System.out.println("5: Exit the program");
 
             choice = input.nextInt();
+            //Sets your choice as an integer for the switch statement below
             input.nextLine();
+            //Moves pointer to avoid error when I use input.nextLine() in case 1:
 
             switch (choice) {
                 case 1:
+                    //Part 1: word review
                     System.out.println("\nWhat is the word you are searching for?");
                     currentWord = input.nextLine().toLowerCase();
+                    //Sets the currentWord we are searching for in MovieReviews.txt to the next input (ignoring case)
 
                     wordValues = wordReview(currentWord);
+                    //Calls wordReview
 
                     if (wordValues[1] == 0) {
+                        //If the denominator is 0, that means it recurrs 0 times and does not exist
                         System.out.println("The word " + currentWord + " doesn't exist!");
                     } else {
+                        //It occurs otherwise and so we calculate the average and tell the user in how many sentences it shows up in
                         System.out.println("The word " + currentWord + " appears " + wordValues[1] + " times.");
                         System.out.println("The average word score is " + wordValues[0] / wordValues[1]);
                     }
                     break;
 
                 case 2:
+                    //Part 2: sentence review
                     sentenceReview();
+                    //Calls sentenceReview
                     break;
 
                 case 3:
+                    //Part 3: Multiple word score
                     maxMinValues();
+                    //Calls maxMinValues
                     break;
 
                 case 4:
+                    //Part 4: Multiple word score sort
                     scoreSort();
+                    //Calls scoreSort
                     break;
 
                 case 5:
+                    //Ends program
                     loop = false;
+                    //Ends while loop by setting loop to false
                     break;
 
             }
@@ -81,6 +97,8 @@ public class MoviewReview {
     }
 
     public static double[] wordReview(String currentWord) throws FileNotFoundException {
+        //Method that takes a word and finds out how many times it shows up in MovieReviews.txt. It then adds up all of the scores
+        //from those sentences and returns a double array with the total word score and total number of recurrances 
 
         // VARIABLES
         double scoreCount = 0, score = 0, wordRecurrance = 0, counter = 0;
@@ -93,21 +111,32 @@ public class MoviewReview {
 
         // INPUT
         while (fileReader.hasNext()) {
+            //As long as there are more lines in MovieReviews.txt do the following
             currentLine = fileReader.nextLine();
+            //Set the current line we are analyzing to the next line in the file
             st = new StringTokenizer(currentLine, "-, ");
+            //Tokenize the line at the hyphen, comma, and space because those are where words start and end in the file
             counter = 0;
             score = 0;
+            //Resets both counter and score for each successive line in MovieReviews.txt
 
             score = score + Integer.parseInt(st.nextToken());
+            //Set the score to the first token since it will always be at the start, score will be used depending on if
+            //the currentWord shows up in the currentLine we are analyzing so score is just a placeholder for the value
 
             while (st.hasMoreTokens()) {
+                //As long as there are more words from currentLine do the following
 
                 if ((st.nextToken().toLowerCase()).equals(currentWord.toLowerCase())) {
+                    //If the next token is the same as the currentWord (ignoring case) we add one to the counter
+                    //to tell us that the word is in this sentence
                     counter++;
                 }
             }
 
             if (counter != 0) {
+                //If counter is not 0 that means the word was found in the just analyzed sentence so add one to the wordRecurrance
+                //and add the score value to the more permanent scoreCount for the word
                 wordRecurrance++;
                 scoreCount = scoreCount + score;
             }
@@ -115,11 +144,16 @@ public class MoviewReview {
 
         wordValues[0] = scoreCount;
         wordValues[1] = wordRecurrance;
+        //Once all the lines in the MovieReviews.txt file have been analyzed, set indice 0 of the double array wordValues
+        //to the total score count and indice 1 to the number of sentences the word showed up in
 
         return wordValues;
+        //Return this double array
     }
 
     public static void sentenceReview() throws Exception {
+        //This method takes a file with one word per line and gets the average score of the sentence by evaluating the score of
+        //each word and weighting it base on how many times we see it in the file
 
         // VARIABLES
         String fileName, currentWord;
@@ -134,34 +168,54 @@ public class MoviewReview {
         // INPUT
         System.out.println("\nInput a file name to review: ");
         fileName = input.nextLine();
+        //Gets a fileName from the user
 
         file = new File(".//data//movie.review//" + fileName);
+        //Accesses the file through this directory
 
         fileReader = new Scanner(file);
+        //Sets a scanner to that file
 
         for (int n = 0; fileReader.hasNext(); n++) {
             sentence.add(fileReader.nextLine());
+            //This for loop adds every word in the file as its own element in an array list, the array list does not need to have its
+            //size predefined it will adjust as needed and it is thus useful for us because I can never know the size of the file the
+            //user will pass to the program
         }
 
-        // Everything above makes an array with each word in its own memory location
         wordScores = new double[sentence.size()];
         recurranceScores = new double[sentence.size()];
+        //Create two new double arrays one for the score of each word and one for the recurrances of each word (in MovieReviews.txt,
+        //not the file the user passed)
 
         for (int n = 0; n < sentence.size(); n++) {
+            //As long as there are more words in the files sentence do the following
 
             currentWord = sentence.get(n);
             wordValues = wordReview(currentWord);
+            //Set the current word to the word at 0, 1, 2, ... and then pass the current word to wordReview and put the returned
+            //double array into another double array called wordValues
+
             wordScores[n] = wordValues[0];
             recurranceScores[n] = wordValues[1];
+            //Seperate the data in wordValues into scores and recurrances. At indice 0 for wordScores/recurranceScores you will find
+            //values for the first word in the file and at indice 1 you will find the values for the second word in the file and so on.
         }
 
         for (int n = 0; n < sentence.size(); n++) {
+            //As long as there are more words in the file do the following
+
             totalWordScore = totalWordScore + wordScores[n];
             totalRecurrance = totalRecurrance + recurranceScores[n];
+            //Calculate the overall word score and recurrance of all the words in the file by adding them up into totalWordScore and
+            //totalRecurrance
         }
 
         if (totalRecurrance != 0) {
+            //As long as there were words that were evaluated (showed up in MovieReviews.txt) do the following
+
             sentenceScore = totalWordScore / totalRecurrance;
+            //Caluclate the sentence score
 
             // OUTPUT
             System.out.println("\nhe average score of words in " + fileName + " is " + sentenceScore);
@@ -173,16 +227,25 @@ public class MoviewReview {
             } else {
                 System.out.println("The overall sentiment is neutral.");
             }
+            //This if, else if, else block asks is the score of the sentence greater than 2.2? It is overall a positive sentence
+            //Is it less than 1.8? It is overall a negative sentence. Is it in between? It is overall neutral
+
         } else {
-            System.out.println("\nThis file is empty!");
+            //If there were no recurrances total that means nothing was in the file or the words were not found in MovieReviews.txt
+            System.out.println("\nThis file is either empty or has words that are invalid!");
+            //This then returns to the menu
         }
 
     }
 
     public static void maxMinValues() throws FileNotFoundException {
+        //This method finds the maximum and minimum scores of words in a file (one word per line)
+        //and then returns them to the user. If multiple words share the same maximum or minimum score they 
+        //are all given back to the user
 
         // VARIABLES
         double max, min, check;
+        boolean valid = true;
         double[] wordValues;
         String maxWord, minWord, fileName, nextWord;
         ArrayList<String> morePositive = new ArrayList<>(), moreNegative = new ArrayList<>();
@@ -194,37 +257,60 @@ public class MoviewReview {
         // INPUT
         System.out.println("\nInput a file name to find max and mins for: ");
         fileName = input.nextLine();
+        //Gets the file that the user wants to analyzed
 
         file = new File(".//data//movie.review//" + fileName);
+        //Creates a new file based on the directory above
         fileReader = new Scanner(file);
+        //Creates a scanner for the file
 
         maxWord = fileReader.nextLine();
+        //Sets the maximum scored word to the next line 
+
         while (wordReview(maxWord)[1] == 0) {
-            maxWord = fileReader.nextLine();
+            //As long as the recurrance of the current maxWord is 0 (meaning it does not exist in MovieReviews.txt and thus has no
+            //score, set maxWord to the next line in the file
+            if (fileReader.hasNext()) {
+                //If there are more unchecked lines set the maxWord to the next one and loop
+                maxWord = fileReader.nextLine();
+            } else {
+                //If we run out of lines and they all can't be found in MovieReviews.txt, then there is no valid data to analyze
+                System.out.println("No valid data!");
+                valid = false;
+                //This brings you back to the menu because all of the work below will not be run by the if statement which checks for this
+            }
+
         }
 
-        if (!fileReader.hasNext()) {
-            System.out.println("No valid data!");
-        } else {
+        if (valid) {
             minWord = maxWord;
+            //Set both the minimum word and maximum word to this valid word
 
             wordValues = wordReview(maxWord);
             max = wordValues[0] / wordValues[1];
+            //Call wordReview and set the score of the maxWord 
 
             wordValues = wordReview(minWord);
             min = wordValues[0] / wordValues[1];
+            //Call wordReview and set the score of the minWord
 
             while (fileReader.hasNext()) {
+                //As long as more lines in the file exist do the following
+                
                 nextWord = fileReader.nextLine();
+                //Set the next word to the next line in the file
 
                 wordValues = wordReview(nextWord);
                 check = wordValues[0] / wordValues[1];
+                //Sets the score of the next word after calling wordReview
 
                 if (max < check) {
+                    //If our current max is less than the next word we set the new max to the nextWord
                     maxWord = nextWord;
                     max = check;
                 }
                 if (min > check) {
+                    //If our current min is greater than the next word we set the new min to the nextWord
                     minWord = nextWord;
                     min = check;
                 }
