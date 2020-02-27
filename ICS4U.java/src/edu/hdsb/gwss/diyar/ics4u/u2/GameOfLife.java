@@ -23,14 +23,14 @@ public class GameOfLife {
     public static void main(String[] args) {
 
         // VARIABLES
-        int[][] cellGrid = new int[20][20];
-        int[][] prevGenGrid = new int[20][20];
-        int gridSize = cellGrid[0].length * cellGrid.length;
+        int[][] cellGrid = new int[20 + 2][20 + 2];
+        int[][] prevGenGrid = new int[20 + 2][20 + 2];
+        int gridSize = (cellGrid[0].length - 2) * (cellGrid.length - 2);
 
         // INPUT
         cellGrid = startUp(cellGrid, gridSize);
-        prevGenGrid = copy(cellGrid);
-        displayGrid(prevGenGrid);
+        //prevGenGrid = copy(cellGrid);
+        //displayGrid(prevGenGrid);
         displayGrid(cellGrid);
     }
 
@@ -50,8 +50,8 @@ public class GameOfLife {
         if (cellCount < gridSize / 2) { //What if they input over 400 cellCount? Or under 0? I have no solution for this case yet
             cellGrid = addCells(cellCount, cellGrid, allEmpty, gridSize);
         } else if (cellCount > gridSize / 2) {
-            for (int r = 0; r < 20; r++) {
-                for (int c = 0; c < 20; c++) {
+            for (int r = 1; r < gridSize; r++) {
+                for (int c = 1; c < gridSize; c++) {
                     cellGrid[r][c] = 1;
                 }
             }
@@ -71,8 +71,10 @@ public class GameOfLife {
         // INPUT
         if (allEmpty) {
             for (int i = 0; i < cellCount;) {
-                row = (int) (Math.random() * 19);
-                col = (int) (Math.random() * 19);
+                row = (int) (Math.random() * (19 + 1) + 1) ;
+                //19 represents a value that will eventually be a variable of the cellGrid.length - 1
+                col = (int) (Math.random() * (19 + 1) + 1);
+                //The + 1 at the end is so we dont get 0 as an indice
 
                 if (cellGrid[row][col] == CELL_EMPTY) {
                     cellGrid[row][col] = CELL_ALIVE;
@@ -99,11 +101,11 @@ public class GameOfLife {
     public static int[][] copy(int[][] cellGrid) {
 
         // VARIABLES
-        int[][] copy = new int[20][20];
+        int[][] copy = new int[20 + 2][20 + 2];
 
         // INPUT
-        for (int row = 0; row < 20; row++) {
-            for (int col = 0; col < 20; col++) {
+        for (int row = 1; row < cellGrid.length - 1; row++) {
+            for (int col = 1; col < cellGrid.length - 1; col++) {
                 copy[row][col] = cellGrid[row][col];
             }
         }
@@ -114,8 +116,8 @@ public class GameOfLife {
 
     public static void displayGrid(int[][] cellGrid) {
 
-        for (int row = 0; row < 20; row++) {
-            for (int col = 0; col < 20; col++) {
+        for (int row = 1; row < cellGrid.length - 1; row++) {
+            for (int col = 1; col < cellGrid.length - 1; col++) {
                 System.out.print(cellGrid[row][col] + " ");
             }
             System.out.println("");
@@ -128,22 +130,56 @@ public class GameOfLife {
         // VARIABLES
         int neighCount;
         int cellState;
-        
+
         // INPUT
-        for (int r = 0; r < 20; r++) {
-            for (int c = 0; c < 20; c++) {
+        for (int r = 1; r < cellGrid.length; r++) {
+            for (int c = 1; c < cellGrid.length; c++) {
                 cellState = cellGrid[r][c];
-                neighCount = countNeigh(cellState);
-                switch neighCount{
-                    case:
+                neighCount = countNeigh(cellState, cellGrid, r, c);
+
+                switch (neighCount) {
+                    case 0:
+                        if (cellState == CELL_ALIVE) {
+                            cellState = CELL_DEAD;
+                        }
+                        break;
+                    case 1:
+                        if (cellState == CELL_ALIVE) {
+                            cellState = CELL_DEAD;
+                        }
+                        break;
+                    case 2:
+                    case 3:
+                        if (cellState == CELL_DEAD) {
+                            cellState = CELL_ALIVE;
+                        }
+                        break;
+                    default:
+                        if (cellState == CELL_ALIVE) {
+                            cellState = CELL_DEAD;
+                        }
+                        break;
                 }
             }
         }
     }
-    
-    public static int countNeigh(int cellState){
-        
-        return cellState;
-    }
 
+    public static int countNeigh(int cellState, int[][] cellGrid, int r, int c) {
+
+        // VARIABLES
+        int counting = 0;
+
+        // INPUT
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+            }// I have yet to check if this works w/ Kyle's method
+
+            if (cellGrid[r][c] == CELL_ALIVE) {
+                counting = counting - CELL_ALIVE;
+            } else if (cellGrid[r][c] == CELL_DEAD) {
+                counting = counting = CELL_DEAD;
+            }
+        }
+        return counting;
+    }
 }
