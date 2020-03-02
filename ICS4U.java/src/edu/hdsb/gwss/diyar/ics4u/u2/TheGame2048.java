@@ -48,6 +48,7 @@ public class TheGame2048 extends javax.swing.JFrame {
 
         // RANDOM
         data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 4;
+        //What if this repeats
         data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 2;
         
         refreshScreen();

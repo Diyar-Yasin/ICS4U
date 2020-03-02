@@ -25,6 +25,7 @@ public class dataShift {
         };
         
         display(data);
+        shiftLeft(data);
     }
     
     public static void display(int[][] data){
@@ -38,6 +39,29 @@ public class dataShift {
     
     public static int[][] shiftLeft(int[][] data){
         
+        // VARIABLES
+        int first, second, holder;
+        
+        System.out.println("SHIFT LEFT");
+        
+        for (int r = 0; r < 4; r++){
+            for (int c = 0; c < 4; c++){
+                first = data[r][c];
+                //What if c + 1 >= 4?
+                c++;
+                second = data[r][c];
+                
+                if (first == 0){
+                    data[r][c - 1] = second;
+                    data[r][c] = 0;
+                    
+                }
+                
+            }
+        }
+        display(data);
+        
+        return data;
     }
     
 }
