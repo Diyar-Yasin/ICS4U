@@ -5,6 +5,9 @@
  */
 package edu.hdsb.gwss.diyar.ics4u.u2;
 
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 
 /**
@@ -21,6 +24,10 @@ public class TheGame2048 extends javax.swing.JFrame {
      */
     public TheGame2048() {
         initComponents();
+
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+
+        manager.addKeyEventDispatcher(new MyDispatcher());
 
         data = new int[4][4];
         boxes = new JLabel[4][4];
@@ -50,8 +57,35 @@ public class TheGame2048 extends javax.swing.JFrame {
         data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 4;
         //What if this repeats
         data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 2;
-        
+
         refreshScreen();
+    }
+
+    private class MyDispatcher implements KeyEventDispatcher {
+
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent evt) {
+            if (evt.getID() == KeyEvent.KEY_PRESSED) {
+                System.out.print("KEY PRESSED: ");
+
+                switch (evt.getKeyCode()) {
+                    case KeyEvent.VK_UP:
+                        System.out.println("UP");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        System.out.println("DOWN");
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        System.out.println("LEFT");
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        System.out.println("RIGHT");
+                        break;
+                } // END Key Even
+
+            } // END METHOD: dispatchKeyEvent
+            return false;
+        } // END CLASS: MyDispatcher
     }
 
     public void refreshScreen() {
