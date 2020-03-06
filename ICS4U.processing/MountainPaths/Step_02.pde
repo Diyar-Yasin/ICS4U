@@ -6,7 +6,19 @@
  */
 public static int findMin( int[][] data ) {
 
-  return 0;
+  int min = data[0][0];
+  
+  for (int i = 0; i < data.length; i++){
+   for (int j = 0; j < data[0].length; j++){
+    if (data[i][j] < min){
+     min = data[i][j]; 
+    }
+   }
+  }
+  
+  println(min);
+  
+  return min;
   
 }
 
@@ -18,6 +30,15 @@ public static int findMin( int[][] data ) {
  */
 public static int findMax( int[][] data ) {
 
-  return Integer.MAX_VALUE;
+    int max = data[0][0];
+  
+  for (int i = 0; i < data.length; i++){
+   for (int j = 0; j < data[0].length; j++){
+    if (data[i][j] > max){
+     max = data[i][j]; 
+    }
+   }
+  }
+  return max;
   
 }

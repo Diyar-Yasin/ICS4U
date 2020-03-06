@@ -9,7 +9,7 @@
  import java.util.Scanner;
  import java.util.StringTokenizer;
  
-public static int[][] readData( String fileName ) {
+public static int[][] readData( String fileName, int max, int min ) {
 
   int[][] data;
   int rows = 0, cols;
