@@ -14,7 +14,7 @@ void setup() {
   // TASK 1:  READ data into a 2D Array
   // 
   println("TASK 1: READ DATA");
-  int[][] data = readData("Colorado.844x480.dat");
+  int[][] data = readData("test.dat");
 
 
   // ***********************************

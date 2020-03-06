@@ -13,32 +13,40 @@ public static int[][] readData( String fileName ) {
 
   int[][] data;
   int rows = 0, cols;
-  Scanner fileReader = new Scanner(fileName);
-  StringTokenizer st;
-  
+  File file = new File("/Users/Diyar/Desktop/Diyar/School/Current/ICS4U-Diyar/ICS4U.processing/MountainPaths/data/" + fileName);
+
   try {
 
     // YOUR CODE
-    while (fileReader.hasNextLine()){
+    Scanner fileReader = new Scanner(file);
+    StringTokenizer st;
+  
+    while (fileReader.hasNext()){
       fileReader.nextLine();
       rows++;
     }
     
-    fileReader = new Scanner(fileName);
+    fileReader.close(); 
+    fileReader = new Scanner(file);
     st = new StringTokenizer(fileReader.nextLine());
     cols = st.countTokens();
     
-    System.out.println(rows + " " + cols);
-    //Giving me 1 1 why? 
     data = new int[rows][cols];
     
-    
+    for (int i = 0; i < rows; i++){
+      for (int j = 0; j < cols; j++){
+       data[i][j] = Integer.parseInt(st.nextToken()); 
+      }
+      if (i != rows - 1){
+        st = new StringTokenizer(fileReader.nextLine());
+      } 
+    }
+    fileReader.close();
   } 
   catch (Exception e ) {
     println( "STEP 01 - Exception" );
     e.printStackTrace();
     data = null;
   }
-
   return data;
 }
