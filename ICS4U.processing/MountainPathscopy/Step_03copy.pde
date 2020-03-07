@@ -8,10 +8,9 @@
  * @param grid a 2D array of the data
  */
  
-void draw( int[][] data ) {
+ public static void drawMap( int[][] data ) {
    
-   double min = data[0][0], max = data[0][0], b;
-   int c;
+   int min = data[0][0], max = data[0][0], c;
 
   for (int i = 0; i < data.length; i++){
    for (int j = 0; j < data[0].length; j++){
@@ -27,11 +26,7 @@ void draw( int[][] data ) {
   for (int i = 0; i < data.length; i++){
    for (int j = 0; j < data[0].length; j++){
      
-      b = (data[i][j] - min)/(max - min);
-      c =  (int) (b * 255.0); 
-      
-      stroke(c, c, c);
-      rect(j, i, 1, 1);
+      c = Math.round((data[i][j] - min)/(max - min) * 255);     
 
    }
   }

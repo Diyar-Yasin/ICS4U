@@ -14,7 +14,7 @@ void setup() {
   // TASK 1:  READ data into a 2D Array
   // 
   println("TASK 1: READ DATA");
-  int[][] data = readData("844x480.dat");
+  int[][] data = readData("test.dat");
 
 
   // ***********************************
@@ -32,7 +32,7 @@ void setup() {
   // TASK 3:  Draw The Map
   //
   System.out.println("TASK 3: DRAW MAP");
-  draw( data );
+  drawMap( data );
 
 
   // ***********************************
