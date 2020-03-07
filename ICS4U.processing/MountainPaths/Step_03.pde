@@ -7,10 +7,13 @@
  * @param g a Graphics context to use
  * @param grid a 2D array of the data
  */
+ import java.utils.color;
+ 
  public static void drawMap( int[][] data ) {
    
    int min = data[0][0], max = data[0][0], c;
-   color g;
+
+    color g;
 
   for (int i = 0; i < data.length; i++){
    for (int j = 0; j < data[0].length; j++){
@@ -27,8 +30,6 @@
    for (int j = 0; j < data[0].length; j++){
      
       c = Math.round((data[i][j] - min)/(max - min) * 255);     
-      g.setColor(new Color(c, c, c));
-      g.fillRect(j,i,1,1);
 
       fill( c );
    }
