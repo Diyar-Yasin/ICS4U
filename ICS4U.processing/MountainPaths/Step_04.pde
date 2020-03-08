@@ -6,8 +6,16 @@
  * @col the column in the 2D array to process
  * @return the index of smallest value from grid at the given col
  */
-public static int indexOfMinInCol(int[][] grid, int col) {
-
-  return -4;
+public static int indexOfMinInCol(int[][] data, int col) {
   
+  int min = data[0][0], minIndex = 0;
+  
+  for (int i = 0; i < data.length; i++){
+    if (data[i][col] < min){
+     min = data[i][col];
+     minIndex = i; 
+   }
+  }
+
+  return minIndex;
 }

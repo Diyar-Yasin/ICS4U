@@ -35,7 +35,4 @@ void draw( int[][] data ) {
 
    }
   }
-
-  
-  
  }
