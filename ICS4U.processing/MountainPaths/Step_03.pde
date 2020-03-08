@@ -8,7 +8,7 @@
  * @param grid a 2D array of the data
  */
  
-void draw( int[][] data ) {
+void draw( int[][] data ) { //Fix this, just remove static! no need to add void draw
    
    double min = data[0][0], max = data[0][0], b;
    int c;

@@ -54,15 +54,15 @@ void setup() {
   // ***********************************
   // TASK 6:  determine the BEST path
   //
-  int bestRow = indexOfLowestElevPath( data );
+ // int bestRow = indexOfLowestElevPath( data );
   
 
   // ***********************************
   // TASK 7:  draw the best path
   //
-  System.out.println("TASK 6: DRAW BEST PATH");
-  totalChange = drawLowestElevPath( data, bestRow );
-  System.out.println("\tThe Lowest-Elevation-Change Path starts at row: " + bestRow + " and gives a total change of: " + totalChange);
+//  System.out.println("TASK 6: DRAW BEST PATH");
+ // totalChange = drawLowestElevPath( data, bestRow );
+ // System.out.println("\tThe Lowest-Elevation-Change Path starts at row: " + bestRow + " and gives a total change of: " + totalChange);
   
   
 }
