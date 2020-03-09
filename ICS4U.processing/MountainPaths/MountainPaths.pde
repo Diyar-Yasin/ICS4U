@@ -32,7 +32,7 @@ void setup() {
   // TASK 3:  Draw The Map
   //
   System.out.println("TASK 3: DRAW MAP");
-  draw( data );
+  drawMap( data );
 
 
   // ***********************************
@@ -53,8 +53,8 @@ void setup() {
 
   // ***********************************
   // TASK 6:  determine the BEST path
-  //
- // int bestRow = indexOfLowestElevPath( data );
+  
+  int bestRow = indexOfLowestElevPath( data );
   
 
   // ***********************************

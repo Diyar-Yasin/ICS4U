@@ -6,7 +6,17 @@
  * @return the index of the row where the lowest elevation-change path
  * starts.
  */
-public static int indexOfLowestElevPath( int[][] data ) {
+public  int indexOfLowestElevPath( int[][] data ) {
+  
+  int bestRow = 0;
+  noStroke();
+  fill(255, 0, 0);
+  
+  for (int row = 0; row < data.length; row++){
+    for (int col = 0; col < data[0].length; col++){
+      drawLowestElevPath( data, row);
+    }
+  }
   
   return -6;
   

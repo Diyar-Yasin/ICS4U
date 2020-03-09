@@ -13,29 +13,47 @@ public int drawLowestElevPath( int[][] data, int row ) {
   int opt1, opt2, opt3, minOpt, elevChange = 0;
 //For some reason, these lines are very jagged compared to other peoples', find out why
 
-  stroke(0, 255, 0);
+  noStroke();
+  fill(255, 0, 0);
   rect(0, row, 1, 1);
   
   for(int col = 0; col != data[row].length - 1; col++){ //What if we check the boxes above or below and they do not exist because we are at corner of map?
     
-    opt1 = data[row+1][col+1];
-    opt2 = data[row][col+1];
-    opt3 = data[row-1][col+1];
+    if (row == 0){
+      opt1 = Math.abs(data[row+1][col+1] - data[row][col]);
+      opt2 = Math.abs(data[row][col+1] - data[row][col]);
+      
+      
+      minOpt = min(opt2, opt1);
+      opt3 = minOpt + 1;
+    }
+    else if(row == data.length){
+      opt3 = Math.abs(data[row-1][col+1] - data[row][col]);
+      opt2 = Math.abs(data[row][col+1] - data[row][col]);
+      
+      minOpt = min(opt3, opt2);
+      opt1 = minOpt + 1;
+    }
+    else{
+      opt1 = Math.abs(data[row+1][col+1] - data[row][col]);
+      opt2 = Math.abs(data[row][col+1] - data[row][col]);
+      opt3 = Math.abs(data[row-1][col+1] - data[row][col]);
+      
+      minOpt = min(opt1, opt2, opt3);
+    } 
     
-    minOpt = min(opt1, opt2, opt3);
-    
-    if (minOpt == opt1){
-      elevChange = elevChange + Math.abs(data[row][col] - opt1);
-      row = row + 1;
+    if (minOpt == opt2){
+      elevChange = elevChange + opt2;
       rect(col+1, row, 1, 1);
     }
-    else if (minOpt == opt2){
-      elevChange = elevChange + Math.abs(data[row][col] - opt2);
+    else if (minOpt == opt1){ //No ramdomizer for last two opts!
+      elevChange = elevChange + opt1;
+      row++;
       rect(col+1, row, 1, 1);
     }
     else{
-      elevChange = elevChange + Math.abs(data[row][col] - opt3);
-      row = row - 1;
+      elevChange = elevChange + opt3;
+      row--;
       rect(col+1, row, 1, 1);
       
     }

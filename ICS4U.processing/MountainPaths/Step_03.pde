@@ -8,7 +8,7 @@
  * @param grid a 2D array of the data
  */
  
-void draw( int[][] data ) { //Fix this, just remove static! no need to add void draw
+public void drawMap( int[][] data ) { //Fix this, just remove static! no need to add void draw
    
    double min = data[0][0], max = data[0][0], b;
    int c;
@@ -30,7 +30,8 @@ void draw( int[][] data ) { //Fix this, just remove static! no need to add void 
       b = (data[i][j] - min)/(max - min);
       c =  (int) (b * 255.0); 
       
-      stroke(c, c, c);
+      noStroke();
+      fill(c, c, c);
       rect(j, i, 1, 1);
 
    }
