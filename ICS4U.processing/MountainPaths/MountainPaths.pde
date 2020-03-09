@@ -47,7 +47,8 @@ void setup() {
   // TASK 5:  use minRow as starting point to draw path
   //
   System.out.println("TASK 5: PATH from LOWEST STARTING ELEVATION");
-  int totalChange = drawLowestElevPath( data, minRow ); //
+  boolean bestPath = false;
+  int totalChange = drawLowestElevPath( data, minRow, bestPath); //
   System.out.println("\tLowest-Elevation-Change Path starting at row " + minRow + " gives total change of: " + totalChange);
 
 
@@ -60,9 +61,10 @@ void setup() {
   // ***********************************
   // TASK 7:  draw the best path
   //
-//  System.out.println("TASK 6: DRAW BEST PATH");
- // totalChange = drawLowestElevPath( data, bestRow );
- // System.out.println("\tThe Lowest-Elevation-Change Path starts at row: " + bestRow + " and gives a total change of: " + totalChange);
+  System.out.println("TASK 6: DRAW BEST PATH");
+  bestPath = true;
+  totalChange = drawLowestElevPath( data, bestRow, bestPath );
+  System.out.println("\tThe Lowest-Elevation-Change Path starts at row: " + bestRow + " and gives a total change of: " + totalChange);
   
   
 }

@@ -8,16 +8,20 @@
  */
 public  int indexOfLowestElevPath( int[][] data ) {
   
-  int bestRow = 0;
+  int bestElevChange = drawLowestElevPath(data, 0, false), bestRow = 0, nextElevChange;
+  
   noStroke();
   fill(255, 0, 0);
   
-  for (int row = 0; row < data.length; row++){
-    for (int col = 0; col < data[0].length; col++){
-      drawLowestElevPath( data, row);
+    for (int row = 1; row < data.length ; row++){
+      nextElevChange = drawLowestElevPath(data, row, false);
+      
+      if (bestElevChange > nextElevChange){
+       bestElevChange = nextElevChange; 
+       bestRow = row;
+      }
     }
-  }
   
-  return -6;
+  return bestRow;
   
 }

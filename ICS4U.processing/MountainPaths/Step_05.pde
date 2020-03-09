@@ -8,13 +8,18 @@
  * @return total elevation of the route
  */
 
-public int drawLowestElevPath( int[][] data, int row ) {
+public int drawLowestElevPath( int[][] data, int row, boolean bestPath ) {
   
   int opt1, opt2, opt3, minOpt, elevChange = 0;
 //For some reason, these lines are very jagged compared to other peoples', find out why
 
   noStroke();
-  fill(255, 0, 0);
+  if (bestPath){
+    fill(0, 255, 0);
+  }
+  else{
+      fill(255, 0, 0);
+  }
   rect(0, row, 1, 1);
   
   for(int col = 0; col != data[row].length - 1; col++){ //What if we check the boxes above or below and they do not exist because we are at corner of map?
@@ -27,7 +32,7 @@ public int drawLowestElevPath( int[][] data, int row ) {
       minOpt = min(opt2, opt1);
       opt3 = minOpt + 1;
     }
-    else if(row == data.length){
+    else if(row == data.length - 1){
       opt3 = Math.abs(data[row-1][col+1] - data[row][col]);
       opt2 = Math.abs(data[row][col+1] - data[row][col]);
       
