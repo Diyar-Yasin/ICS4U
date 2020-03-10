@@ -13,16 +13,8 @@ public void drawMap( int[][] data ) { //Fix this, just remove static! no need to
    double min = data[0][0], max = data[0][0], b;
    int c;
 
-  for (int i = 0; i < data.length; i++){
-   for (int j = 0; j < data[0].length; j++){
-    if (data[i][j] < min){
-     min = data[i][j]; 
-    }
-    if (data[i][j] > max){
-     max = data[i][j]; 
-    }
-   }
-  }
+  min = findMin(data);
+  max = findMax(data);
 
   for (int i = 0; i < data.length; i++){
    for (int j = 0; j < data[0].length; j++){

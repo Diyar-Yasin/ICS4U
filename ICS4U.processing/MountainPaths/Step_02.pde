@@ -7,6 +7,7 @@
 public static int findMin( int[][] data ) {
 
   int min = data[0][0];
+  //Set the min to  the first value in our array
   
   for (int i = 0; i < data.length; i++){
    for (int j = 0; j < data[0].length; j++){

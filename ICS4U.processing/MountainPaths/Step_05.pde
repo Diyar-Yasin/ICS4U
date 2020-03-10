@@ -51,7 +51,19 @@ public int drawLowestElevPath( int[][] data, int row, boolean bestPath ) {
       elevChange = elevChange + opt2;
       rect(col+1, row, 1, 1);
     }
-    else if (minOpt == opt1){ //No ramdomizer for last two opts!
+    else if (opt1 == opt3){
+      if ((int) Math.round(Math.random()) == 1){
+        elevChange = elevChange + opt1;
+        row++;
+        rect(col+1, row, 1, 1);
+      }
+      else {
+        elevChange = elevChange + opt3;
+      row--;
+      rect(col+1, row, 1, 1);
+      }
+    }
+    else if (minOpt == opt1){
       elevChange = elevChange + opt1;
       row++;
       rect(col+1, row, 1, 1);
