@@ -95,7 +95,7 @@ public int drawLowestElevPath( int[][] data, int row, boolean bestPath ) {
         row--;
         //Going up a row (by subtracting 1 from our row, ie y value)
         rect(col+1, row, 1, 1);
-        //Draw a rectangle at that y value and the x value to the right of where we are
+        Draw a rectangle at that y value and the x value to the right of where we are
       }
     }
     else if (minOpt == opt1){

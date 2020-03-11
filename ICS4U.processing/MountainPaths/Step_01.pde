@@ -15,7 +15,7 @@ public static int[][] readData( String fileName) {
   //Create the array that will hold the file's data
   int rows = 0, cols;
   //Initialize the rows and cols, cols cannot be given an initial value because we have not yet tokenized the first line in the file
-  File file = new File("/Users/Diyar/Desktop/Diyar/School/Current/ICS4U-Diyar/ICS4U.processing/MountainPaths/data/" + fileName);
+  File file = new File(fileName);
   //Create a new file that is located in the following directory
 
   try {
