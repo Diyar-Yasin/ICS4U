@@ -32,6 +32,8 @@ public class dataShift {
         shiftLeft(data);
         mergeLeft(data);
         shiftLeft(data);
+        mergeLeft(data);
+        shiftLeft(data);
     }
 
     public static void display(int[][] data) {

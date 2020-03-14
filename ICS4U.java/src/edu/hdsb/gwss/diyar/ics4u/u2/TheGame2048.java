@@ -54,11 +54,17 @@ public class TheGame2048 extends javax.swing.JFrame {
         boxes[3][3] = jLabel33;
 
         // RANDOM
-        data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 4;
-        //What if this repeats
-        data[(int) (Math.random() * 4)][(int) (Math.random() * 4)] = 2;
+        int random1 = (int) (Math.random() * 4), random2 = (int) (Math.random() * 4);
+
+        while (random1 == random2) {
+            random1 = (int) (Math.random() * 4);
+        }
+        data[random1][random1] = 4;
+        data[random2][random2] = 2;
 
         refreshScreen();
+        
+        //Now I just have to ask if keyPress perform the shift/merge (code already done in dataShift.java) 
     }
 
     private class MyDispatcher implements KeyEventDispatcher {
