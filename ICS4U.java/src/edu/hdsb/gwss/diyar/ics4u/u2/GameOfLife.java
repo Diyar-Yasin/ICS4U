@@ -25,13 +25,29 @@ public class GameOfLife {
         // VARIABLES
         int[][] cellGrid = new int[20 + 2][20 + 2];
         int[][] prevGenGrid = new int[20 + 2][20 + 2];
-        int gridSize = (cellGrid[0].length - 2) * (cellGrid.length - 2);
+        int gridSize = (cellGrid[0].length - 2) * (cellGrid.length - 2), choice;
+
+        // OBJECTS
+        Scanner input = new Scanner(System.in);
 
         // INPUT
-        cellGrid = startUp(cellGrid, gridSize);
-        //prevGenGrid = copy(cellGrid);
-        //displayGrid(prevGenGrid);
-        displayGrid(cellGrid);
+        cellGrid = startUp(cellGrid, gridSize);                          //First create the grid based on how many cells the user wants
+        prevGenGrid = copy(cellGrid);                                    //Make a copy so we know what the previous generation looks like
+        displayGrid(prevGenGrid);                                        //Display the previous generation
+
+        System.out.println("Advance to next generation? Press 1");
+        System.out.println("Press any other key to exit.");
+        choice = input.nextInt();
+
+        while (choice == 1) {
+            checkCellState(cellGrid);                                        //Update the grid
+            displayGrid(cellGrid);                                           //Display the updated grid         
+
+            System.out.println("Advance to next generation? Press 1");
+            System.out.println("Press any other key to exit.");
+            choice = input.nextInt();
+        }
+
     }
 
     public static int[][] startUp(int[][] cellGrid, int gridSize) {
@@ -71,7 +87,7 @@ public class GameOfLife {
         // INPUT
         if (allEmpty) {
             for (int i = 0; i < cellCount;) {
-                row = (int) (Math.random() * (19 + 1) + 1) ;
+                row = (int) (Math.random() * (19 + 1) + 1);
                 //19 represents a value that will eventually be a variable of the cellGrid.length - 1
                 col = (int) (Math.random() * (19 + 1) + 1);
                 //The + 1 at the end is so we dont get 0 as an indice
@@ -132,8 +148,8 @@ public class GameOfLife {
         int cellState;
 
         // INPUT
-        for (int r = 1; r < cellGrid.length; r++) {
-            for (int c = 1; c < cellGrid.length; c++) {
+        for (int r = 1; r < cellGrid.length - 1; r++) {
+            for (int c = 1; c < cellGrid.length - 1; c++) {
                 cellState = cellGrid[r][c];
                 neighCount = countNeigh(cellState, cellGrid, r, c);
 
@@ -160,6 +176,8 @@ public class GameOfLife {
                         }
                         break;
                 }
+
+                cellGrid[r][c] = cellState;
             }
         }
     }
@@ -169,17 +187,21 @@ public class GameOfLife {
         // VARIABLES
         int counting = 0;
 
-        // INPUT
+        // INPUT        
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
-            }// I have yet to check if this works w/ Kyle's method
-
-            if (cellGrid[r][c] == CELL_ALIVE) {
-                counting = counting - CELL_ALIVE;
-            } else if (cellGrid[r][c] == CELL_DEAD) {
-                counting = counting = CELL_DEAD;
+                if (cellGrid[r + x][c + y] == CELL_ALIVE) {
+                    counting++;
+                }
             }
         }
+
+        if (cellGrid[r][c] == CELL_ALIVE) {
+            counting = counting - CELL_ALIVE;
+        } else if (cellGrid[r][c] == CELL_DEAD) {
+            counting = counting - CELL_DEAD;
+        }
+
         return counting;
     }
 }
