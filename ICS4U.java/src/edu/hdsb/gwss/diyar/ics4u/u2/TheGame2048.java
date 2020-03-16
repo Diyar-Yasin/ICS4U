@@ -5,6 +5,9 @@
  */
 package edu.hdsb.gwss.diyar.ics4u.u2;
 
+import static edu.hdsb.gwss.diyar.ics4u.u2.dataShift.display;
+import static edu.hdsb.gwss.diyar.ics4u.u2.dataShift.mergeLeft;
+import static edu.hdsb.gwss.diyar.ics4u.u2.dataShift.shiftLeft;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -54,17 +57,8 @@ public class TheGame2048 extends javax.swing.JFrame {
         boxes[3][3] = jLabel33;
 
         // RANDOM
-        int random1 = (int) (Math.random() * 4), random2 = (int) (Math.random() * 4);
-
-        while (random1 == random2) {
-            random1 = (int) (Math.random() * 4);
-        }
-        data[random1][random1] = 4;
-        data[random2][random2] = 2;
-
+        random(data);
         refreshScreen();
-        
-        //Now I just have to ask if keyPress perform the shift/merge (code already done in dataShift.java) 
     }
 
     private class MyDispatcher implements KeyEventDispatcher {
@@ -77,15 +71,43 @@ public class TheGame2048 extends javax.swing.JFrame {
                 switch (evt.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         System.out.println("UP");
+                        shiftUp(data);
+                        mergeUp(data);
+                        shiftUp(data);
+                        mergeUp(data);
+                        shiftUp(data);
+                        random(data);
+                        refreshScreen();
                         break;
                     case KeyEvent.VK_DOWN:
                         System.out.println("DOWN");
+                        shiftDown(data);
+                        mergeDown(data);
+                        shiftDown(data);
+                        mergeDown(data);
+                        shiftDown(data);
+                        random(data);
+                        refreshScreen();
                         break;
                     case KeyEvent.VK_LEFT:
                         System.out.println("LEFT");
+                        shiftLeft(data);
+                        mergeLeft(data);
+                        shiftLeft(data);
+                        mergeLeft(data);
+                        shiftLeft(data);
+                        random(data);
+                        refreshScreen();
                         break;
                     case KeyEvent.VK_RIGHT:
                         System.out.println("RIGHT");
+                        shiftRight(data);
+                        mergeRight(data);
+                        shiftRight(data);
+                        mergeRight(data);
+                        shiftRight(data);
+                        random(data);
+                        refreshScreen();
                         break;
                 } // END Key Even
 
@@ -105,6 +127,187 @@ public class TheGame2048 extends javax.swing.JFrame {
 
             }
         }
+    }
+
+    public static void random(int[][] data) {
+        
+        // VARIABLES
+        int random1 = (int) (Math.random() * 4), random2 = (int) (Math.random() * 4);
+
+        // INPUT
+        while (random1 == random2 && data[random1][random1] != 0 && data[random2][random2] != 0 ) {
+            random1 = (int) (Math.random() * 4);
+            random2 = (int) (Math.random() * 4);
+        }
+        data[random1][random1] = 4;
+        data[random2][random2] = 2;
+    }
+
+    public static int[][] shiftLeft(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        System.out.println("SHIFT LEFT");
+
+        for (int r = 0; r < 4; r++) {
+            for (int c = 0; c < 3; c++) {
+                first = data[r][c];
+                second = data[r][c + 1];
+
+                if (first == 0) {
+                    data[r][c] = second;
+                    data[r][c + 1] = 0;
+                }
+
+            }
+        }
+
+        return data;
+    }
+
+    public static int[][] mergeLeft(int[][] data) {
+
+        int first, second;
+
+        System.out.println("MERGE LEFT");
+
+        for (int r = 0; r < 4; r++) {
+            for (int c = 0; c < 3; c++) {
+                first = data[r][c];
+                second = data[r][c + 1];
+
+                if (first == second) {
+                    data[r][c] = first * 2;
+                    data[r][c + 1] = 0;
+                }
+            }
+        }
+
+        return data;
+    }
+
+    public static int[][] shiftRight(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = data.length - 1; r >= 0; r--) {
+            for (int c = data.length - 1; c > 0; c--) {
+                first = data[r][c];
+                second = data[r][c - 1];
+
+                if (first == 0) {
+                    data[r][c] = second;
+                    data[r][c - 1] = 0;
+                }
+            }
+        }
+
+        return data;
+    }
+
+    public static int[][] mergeRight(int[][] data) {
+
+        //  VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = data.length - 1; r >= 0; r--) {
+            for (int c = data.length - 1; c > 0; c--) {
+                first = data[r][c];
+                second = data[r][c - 1];
+
+                if (first == second) {
+                    data[r][c] = first * 2;
+                    data[r][c - 1] = 0;
+                }
+            }
+        }
+
+        return data;
+    }
+
+    public static int[][] shiftUp(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = 0; r < data.length - 1; r++) {
+            for (int c = 0; c < data.length; c++) {
+                first = data[r][c];
+                second = data[r + 1][c];
+
+                if (first == 0) {
+                    data[r][c] = second;
+                    data[r + 1][c] = 0;
+                }
+            }
+        }
+        return data;
+    }
+
+    public static int[][] mergeUp(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = 0; r < data.length - 1; r++) {
+            for (int c = 0; c < data.length; c++) {
+                first = data[r][c];
+                second = data[r + 1][c];
+
+                if (first == second) {
+                    data[r][c] = first * 2;
+                    data[r + 1][c] = 0;
+                }
+            }
+        }
+        return data;
+    }
+
+    public static int[][] shiftDown(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = data.length - 1; r > 0; r--) {
+            for (int c = data.length - 1; c >= 0; c--) {
+                first = data[r][c];
+                second = data[r - 1][c];
+
+                if (first == 0) {
+                    data[r][c] = second;
+                    data[r - 1][c] = 0;
+                }
+            }
+        }
+
+        return data;
+    }
+
+    public static int[][] mergeDown(int[][] data) {
+
+        // VARIABLES
+        int first, second;
+
+        // INPUT
+        for (int r = data.length - 1; r > 0; r--) {
+            for (int c = data.length - 1; c >= 0; c--) {
+                first = data[r][c];
+                second = data[r - 1][c];
+
+                if (first == second) {
+                    data[r][c] = first * 2;
+                    data[r - 1][c] = 0;
+                }
+            }
+        }
+        return data;
     }
 
     /**
