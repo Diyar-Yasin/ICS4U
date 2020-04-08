@@ -15,28 +15,30 @@ public class PascalsTriangle {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int n = 5;
-        int counter = 0;
-        triangleRun(n, counter);
+        int n = 4;
+        
+        row(n);
     }
+    
+    public static int term(int row, int col){
+        //finds the term at row, col
+        int answer = 0;
+        
+        if (row == col || col == 0){
+            answer = 1;
+        }
+        
+        
 
-    public static void triangleRun(int n, int counter) {
+        return answer;
+    }
+    
+    public static void row(int row){
+        //prints the triangle 
         
-        counter++;
-        
-        if (n > 0){ 
-            
-            for (int i = counter; i > 0; i--){
-                if (i - counter == 0 || n - 1 == 0){
-                System.out.print("1");
-                }
-                else if(){
-                    
-                }
-            }
-            System.out.println("");
-            n--;
-            triangleRun(n, counter);
+        if (row >= 0){
+            System.out.println(term(row, row) + " ");
+            row(row - 1);
         }
     }
 }
