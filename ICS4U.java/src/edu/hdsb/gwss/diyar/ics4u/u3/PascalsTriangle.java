@@ -35,6 +35,12 @@ public class PascalsTriangle {
     public static void row(int startRow, int endRow) {
 
         for (int i = 0; i <= startRow; i++) {
+            
+            if (i == 0){
+                for (int j = 0; j < endRow - startRow; j++){
+                    System.out.print(" ");
+                }
+            }
             System.out.print(term(startRow, i) + " ");
 
         }
@@ -42,6 +48,8 @@ public class PascalsTriangle {
         if (startRow < endRow) {
             row(startRow + 1, endRow);
         }
+        
+        
 
     }
 }
