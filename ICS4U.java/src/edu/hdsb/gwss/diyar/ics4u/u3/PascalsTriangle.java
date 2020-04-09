@@ -19,8 +19,8 @@ public class PascalsTriangle {
     public static void main(String[] args) {
         int n = 10;
 
-        for (int i = 0, j = 0; n > i; i++, j++) {
-            row(i, j);
+        for (int i = 0; n > i; i++) {
+            row(i);
             System.out.println("");
         }
     }
@@ -29,7 +29,8 @@ public class PascalsTriangle {
         
         int term;
         
-        if (row == 0 || (col == row - 1 )){
+        if (row == 0){
+            //This makes sure that the last number placed in a row is always 1, but the first number still needs work
             term = 1;
         }
         else{
@@ -39,11 +40,13 @@ public class PascalsTriangle {
         return term;
     }
 
-    public static int row(int row, int col) {
+    public static int row(int row) {
+        //Currently the row and main methods work fine to produce a triangle of any size I want, but how to fill in the proper
+        //terms is my major issue
 
-        System.out.print(term(row, col) + " ");
+        System.out.print(term(row, 0) + " ");
         if (row > 0) {
-            row(row - 1, col);
+            row(row - 1);
         }
         return 0;
     }
