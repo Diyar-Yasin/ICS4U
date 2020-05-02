@@ -175,9 +175,15 @@ public class Chess {
     public static int[][] checkAvailableMoves(char[][] prevBoard, int[] pieceLocation) {
 
         //TO ADD:
-        //A system like pawnCheck for every other type of piece
+        //A system like pawnCheck for every other type of piece:
+        //Rook
+        //Knight
+        //Bishop
+        //King
+        //Queen
+        
         char piece = prevBoard[pieceLocation[0]][pieceLocation[1]];
-        int[][] availableMoves = new int[28][2];
+        int[][] availableMoves = new int[28][2];//28 moves is max for queen, 2 for row and col
 
         for (int i = 0; i < 28; i++) {
             for (int j = 0; j < 2; j++) {
@@ -187,25 +193,67 @@ public class Chess {
         }
 
         switch (piece) {
-            case 'p':
-                availableMoves = pawnCheck(prevBoard, pieceLocation, piece);
-                break;
+            case 'p': //Will move to 'P' and perform pawnCheck without me having to copy and paste the code under case 'P' for case 'p'
             case 'P':
-                availableMoves = pawnCheck(prevBoard, pieceLocation, piece);
+                availableMoves = pawnCheck(prevBoard, pieceLocation, piece, availableMoves);
+                break;
+            case 'n':
+            case 'N':
+                availableMoves = knightCheck(prevBoard, pieceLocation, piece, availableMoves);
+                break;
             default:
                 break;
         }
 
         return availableMoves;
     }
+    
+    public static int[][] knightCheck(char[][] prevBoard, int[] pieceLocation, char piece, int[][] availableMoves){
+        
+        //WHITE PIECE MOVE CHECK
+        if (piece == 'n'){
+            
+            //TOP-RIGHT
+            if (prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'p' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'n' ||
+                    prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'b' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'r'
+                    || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'q' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'k'){
+                //AVAILABLE MOVE
+            }
+            //TOP-LEFT
+            if (prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'p' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'n' ||
+                    prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'b' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'r'
+                    || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'q' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'k'){
+                //AVAILABLE MOVE
+            }
+            //RIGHT-TOP
+            if(prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'p' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'n' ||
+                    prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'b' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'r'
+                    || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'q' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'k'){
+                //AVAILABLE MOVE
+            }
+            //RIGHT-BOT
+            if(prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'p' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'n' ||
+                    prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'b' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'r'
+                    || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'q' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'k' ){
+                //AVAILABLE MOVE
+            }
+            //LEFT-TOP
+            //if(prevBoard)
+        }
+        //BLACK PIECE MOVE CHECK
+        else{
+            
+        }
+        
+        return availableMoves;
+    }
 
-    public static int[][] pawnCheck(char[][] prevBoard, int[] pieceLocation, char piece) {
+    public static int[][] pawnCheck(char[][] prevBoard, int[] pieceLocation, char piece, int[][] availableMoves) {
 
         //TO ADD:
         //En passant should be implemented eventually
-        //Same with pins on the king
+        //Same with pins on the king, right now the pawn won't be able to capture the king at all
         //If pawns reach end of board, there is no error checking for that!
-        int[][] availableMoves = new int[28][2]; //max moves for a queen is 28, 2 for row and col (we use this array for all other pieces too
 
         //WHITE PIECE MOVE CHECK
         if (piece == 'p') {
