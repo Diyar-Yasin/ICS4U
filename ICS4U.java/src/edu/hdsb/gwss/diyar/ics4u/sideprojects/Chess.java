@@ -211,6 +211,8 @@ public class Chess {
     public static int[][] knightCheck(char[][] prevBoard, int[] pieceLocation, char piece, int[][] availableMoves){
         
         //WHITE PIECE MOVE CHECK
+        
+        
         if (piece == 'n'){
             
             //TOP-RIGHT
@@ -238,11 +240,80 @@ public class Chess {
                 //AVAILABLE MOVE
             }
             //LEFT-TOP
-            //if(prevBoard)
+            if(prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'p' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'n' ||
+                    prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'b' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'r'
+                    || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'q' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'k' ){
+                //AVAILABLE MOVE
+            }
+            //LEFT-BOT
+            if(prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'p' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'n' ||
+                    prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'b' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'r'
+                    || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'q' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'k' ){
+                //AVAILABLE MOVE
+            }
+            //DOWN-RIGHT
+            if(prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'p' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'n' ||
+                    prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'b' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'r'
+                    || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'q' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'k' ){
+                //AVAILABLE MOVE
+            }
+            //DOWN-LEFT
+            if(prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'p' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'n' ||
+                    prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'b' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'r'
+                    || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'q' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'k' ){
+                //AVAILABLE MOVE
+            }
         }
         //BLACK PIECE MOVE CHECK
         else{
-            
+            //TOP-RIGHT
+            if (prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'P' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'N' ||
+                    prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'B' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'R'
+                    || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'Q' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] + 1] != 'K'){
+                //AVAILABLE MOVE
+            }
+            //TOP-LEFT
+            if (prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'P' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'N' ||
+                    prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'B' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'R'
+                    || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'Q' || prevBoard[pieceLocation[0] - 2][pieceLocation[1] - 1] != 'K'){
+                //AVAILABLE MOVE
+            }
+            //RIGHT-TOP
+            if(prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'P' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'N' ||
+                    prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'B' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'R'
+                    || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'Q' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] + 2] != 'K'){
+                //AVAILABLE MOVE
+            }
+            //RIGHT-BOT
+            if(prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'P' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'N' ||
+                    prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'B' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'R'
+                    || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'Q' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] + 2] != 'K' ){
+                //AVAILABLE MOVE
+            }
+            //LEFT-TOP
+            if(prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'P' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'N' ||
+                    prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'B' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'R'
+                    || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'Q' || prevBoard[pieceLocation[0] - 1][pieceLocation[1] - 2] != 'K' ){
+                //AVAILABLE MOVE
+            }
+            //LEFT-BOT
+            if(prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'P' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'N' ||
+                    prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'B' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'R'
+                    || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'Q' || prevBoard[pieceLocation[0] + 1][pieceLocation[1] - 2] != 'K' ){
+                //AVAILABLE MOVE
+            }
+            //DOWN-RIGHT
+            if(prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'P' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'N' ||
+                    prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'B' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'R'
+                    || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'Q' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] + 1] != 'K' ){
+                //AVAILABLE MOVE
+            }
+            //DOWN-LEFT
+            if(prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'P' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'N' ||
+                    prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'B' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'R'
+                    || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'Q' || prevBoard[pieceLocation[0] + 2][pieceLocation[1] - 1] != 'K' ){
+                //AVAILABLE MOVE
+            }
         }
         
         return availableMoves;
