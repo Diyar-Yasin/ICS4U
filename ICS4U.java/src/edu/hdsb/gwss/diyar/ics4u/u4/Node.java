@@ -12,7 +12,7 @@ package edu.hdsb.gwss.diyar.ics4u.u4;
 public class Node {
 
     private String data;
-    private Node next;
+    public Node next;
 
     public Node( String newData ) {
         this.data = newData;

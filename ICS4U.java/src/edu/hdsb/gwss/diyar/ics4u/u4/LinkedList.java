@@ -17,6 +17,7 @@ public class LinkedList {
     // HEAD & TAIL
     private Node head;
     private Node tail;
+    private Node pointer;
 
     /**
      * Linked List Constructor; done for you
@@ -31,8 +32,12 @@ public class LinkedList {
      *
      * @param str
      */
-    public void addAtFront( String str ) {
+    public void addAtFront(String str) {
         // TO DO
+        Node node = new Node(str);
+        node.next = head;
+        head = node;
+
     }
 
     /**
@@ -40,8 +45,15 @@ public class LinkedList {
      *
      * @param str
      */
-    public void addAtEnd( String str ) {
+    public void addAtEnd(String str) {
         // TO DO
+        Node node = new Node(str);
+
+        while (node.next != null) {
+            node = node.next;
+        }
+
+        node.next = node;
     }
 
     /**
@@ -49,8 +61,25 @@ public class LinkedList {
      *
      * @param str
      */
-    public void remove( String str ) {
+    public void remove(String str) {
         // TO DO
+        boolean strExists = true;
+
+        pointer = head;
+
+        if (!isEmpty() && pointer.next != null) {
+            while (!pointer.next.equals(str)) {
+                if (pointer.next != null) {
+                    pointer = pointer.next;
+                } else {
+                    strExists = false;
+                }
+            }
+            if (strExists) {
+                pointer.next = pointer.next.next;
+                //Set the pointer of the current node to a node two down (skipping the node with str in it).
+            }
+        }
     }
 
     public String removeHead() {
@@ -85,7 +114,17 @@ public class LinkedList {
      * @return
      */
     public int size() {
-        return -1;
+        int counter = 0;
+
+        if (head != null) {
+            counter++;
+            while (pointer.next != null) {
+                counter++;
+                pointer = pointer.next;
+            }
+        }
+
+        return counter;
     }
 
     /**
@@ -94,6 +133,10 @@ public class LinkedList {
      * @return
      */
     public boolean isEmpty() {
+
+        if (head == null) {
+            return true;
+        }
         return false;
     }
 
