@@ -21,16 +21,23 @@ public class Queue {
      * Queue Constructor; done for you
      */
     public Queue() {
-        this( DEFAULT_SIZE );
+        this(DEFAULT_SIZE);
     }
 
     /**
      * Queue Constructor; done for you
      */
-    public Queue( int initialCapacity ) {
+    public Queue(int initialCapacity) {
         this.front = -1;
         this.back = -1;
         this.data = new String[initialCapacity];
+    }
+//To test the queue by outputting the data
+
+    public void output() {
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
+        }
     }
 
     /**
@@ -40,6 +47,11 @@ public class Queue {
      * @return the head of this queue.
      */
     public String front() {
+
+        if (data[0] != null) {
+            return data[0];
+        }
+
         return null;
     }
 
@@ -50,7 +62,16 @@ public class Queue {
      * @return the head of this queue.
      */
     public String end() {
+
+        for (int i = data.length; i > 0; i--) {
+            if (data[i] == null) {
+
+            } else {
+                return data[i];
+            }
+        }
         return null;
+
     }
 
     /**
@@ -58,8 +79,14 @@ public class Queue {
      *
      * @param value
      */
-    public void enqueue( String value ) {
+    public void enqueue(String value) {
 
+        if (!isFull()) {
+            for (int i = data.length; i > 1; i--) {
+                data[i - 1] = data[i - 2];
+            }
+            data[0] = value;
+        }
     }
 
     /**
@@ -68,7 +95,13 @@ public class Queue {
      * @return the head of this queue.
      */
     public String dequeue() {
-        return null;
+
+        int size = size();
+        String holder = data[size];
+
+        data[size] = null;
+
+        return holder;
     }
 
     /**
@@ -77,7 +110,17 @@ public class Queue {
      * @return
      */
     public int size() {
-        return 0;
+
+        int n = 0;
+
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] != null) {
+                n++;
+            } else {
+                i = data.length;
+            }
+        }
+        return n;
     }
 
     /**
@@ -86,7 +129,7 @@ public class Queue {
      * @return
      */
     public int capacity() {
-        return -1;
+        return data.length;
     }
 
     /**
@@ -95,7 +138,11 @@ public class Queue {
      * @return
      */
     public boolean isEmpty() {
-        return true;
+
+        if (data[0] == null) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -104,6 +151,10 @@ public class Queue {
      * @return
      */
     public boolean isFull() {
+
+        if (data[data.length - 1] != null) {
+            return true;
+        }
         return false;
     }
 
@@ -111,7 +162,9 @@ public class Queue {
      * The QUEUE will be empty after this call returns.
      */
     public void makeEmpty() {
-
+        for (int i = data.length; i > 0; i--) {
+            data[i - 1] = null;
+        }
     }
 
     /**
@@ -121,20 +174,20 @@ public class Queue {
 
         String s = "---------------------------------------------\n";
         s = s + "QUEUE: \n";
-        for( int i = 0; i < data.length; i++ ) {
-            s = s + s.format( "%5s |", data[i] );
+        for (int i = 0; i < data.length; i++) {
+            s = s + s.format("%5s |", data[i]);
         }
         s = s + "\n";
-        if( this.front != -1 ) {
-            for( int i = 0; i < data.length; i++ ) {
-                if( this.front == this.back && this.front == i ) {
-                    s = s + s.format( "%5s |", "F / B" );
-                } else if( this.front == i ) {
-                    s = s + s.format( "%5s |", "  F  " );
-                } else if( this.back == i ) {
-                    s = s + s.format( "%5s |", "  B  " );
+        if (this.front != -1) {
+            for (int i = 0; i < data.length; i++) {
+                if (this.front == this.back && this.front == i) {
+                    s = s + s.format("%5s |", "F / B");
+                } else if (this.front == i) {
+                    s = s + s.format("%5s |", "  F  ");
+                } else if (this.back == i) {
+                    s = s + s.format("%5s |", "  B  ");
                 } else {
-                    s = s + s.format( "%5s |", "     " );
+                    s = s + s.format("%5s |", "     ");
                 }
 
             }
