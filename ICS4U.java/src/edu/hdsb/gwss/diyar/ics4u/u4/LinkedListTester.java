@@ -27,7 +27,7 @@ public class LinkedListTester {
         ll.remove( "ABC" );
         assert ( ll.size() == 0 );
         assert ( ll.isEmpty() );
-
+        
         // ADD @ FRONT; SIZE 1
         System.out.println( "CASE 2: ADD AT FRONT / REMOVE ONLY ELEMENT" );
         ll.addAtFront( "A" );

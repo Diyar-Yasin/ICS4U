@@ -34,10 +34,14 @@ public class LinkedList {
      */
     public void addAtFront(String str) {
         // TO DO
-        Node node = new Node(str);
-        node.next = head;
-        head = node;
-
+        if (head == null) {
+            head = new Node(str);
+            tail = new Node(str);                                                    //needed?
+        } else {
+            Node node = new Node(str);
+            node.next = head;
+            head = node;
+        }
     }
 
     /**
@@ -67,29 +71,54 @@ public class LinkedList {
 
         pointer = head;
 
-        if (!isEmpty() && pointer.next != null) {
-            while (!pointer.next.equals(str)) {
-                if (pointer.next != null) {
-                    pointer = pointer.next;
-                } else {
-                    strExists = false;
+        if (!isEmpty()) {
+
+            //Case: If the head node is to be removed
+            if (head.getData().equals(str)) {
+                head = head.next;
+            } //Case: If a body node is to be removed
+            else {
+                while (!head.next.getData().equals(str) && strExists) {
+                    head = head.next;
+
+                    if (head.next == null) {
+                        strExists = false;
+                    }
                 }
-            }
-            if (strExists) {
-                pointer.next = pointer.next.next;
-                //Set the pointer of the current node to a node two down (skipping the node with str in it).
+                if (strExists) {
+                    head.next = head.next.next;                   //If the tail is to be removed, head.next.next should be a null
+                }
             }
         }
     }
 
     public String removeHead() {
         // TO DO
-        return null;
+        String headNode = null;
+
+        if (!isEmpty()) {
+            headNode = head.getData();
+            head = head.next;
+        }
+
+        return headNode;
     }
 
     public String removeTail() {
         // TO DO
-        return null;
+        String tailNode = null;
+
+        if (!isEmpty()) {
+            tailNode = tail.getData();
+            tail = null;                                //Is this a correct way to do things?
+            
+            while (head.next != null){
+                head = head.next;
+            }
+            head.next = tail;                           //Is this redundant? Did I just set tail to null and then do it again?
+        }
+
+        return tailNode;
     }
 
     /**
@@ -97,7 +126,13 @@ public class LinkedList {
      * null if this Linked List is empty.
      */
     public String head() {
-        return null;
+        String headNode = null;
+
+        if (!isEmpty()) {
+            headNode = head.getData();
+        }
+
+        return headNode;
     }
 
     /**
@@ -105,7 +140,13 @@ public class LinkedList {
      * null if this Linked List is empty.
      */
     public String tail() {
-        return null;
+        String tailNode = null;
+
+        if (!isEmpty()) {
+            tailNode = tail.getData();
+        }
+
+        return tailNode;
     }
 
     /**
@@ -115,12 +156,13 @@ public class LinkedList {
      */
     public int size() {
         int counter = 0;
+        pointer = head;
 
-        if (head != null) {
+        if (pointer != null) {
             counter++;
             while (pointer.next != null) {
                 counter++;
-                pointer = pointer.next;
+                pointer = head.next;
             }
         }
 
@@ -144,7 +186,8 @@ public class LinkedList {
      * The Linked List will be empty after this call returns.
      */
     public void makeEmpty() {
-
+        head = new Node(null);
+        tail = new Node(null);
     }
 
     /**
@@ -155,7 +198,23 @@ public class LinkedList {
      * @return string
      */
     public String toString() {
-        return null;
+        String ll = "";
+        pointer = head;
+
+        while (pointer != null) {
+
+            ll = ll + pointer.getData();
+
+            if (pointer.next == null) {
+                ll = ll + " --> ";
+            }
+
+            pointer = pointer.next;
+        }
+
+        ll = ll + "null";
+
+        return ll;
     }
 
 }
