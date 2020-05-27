@@ -27,6 +27,8 @@ public class QueueTester {
         assert ( q.isFull() == false );
         System.out.println( "CASE 1: DEQUEUE EMPTY" );
         assert ( q.dequeue() == null );
+        assert ( q.front() == null);
+        assert ( q.end() == null);
         System.out.println( q.toString() );
         
         // TEST CASE #2 - ADD ONE ITEM ON STACK
@@ -36,7 +38,45 @@ public class QueueTester {
         assert( q.size() == 1 );                        // one value added
         assert( q.capacity() == initialCapcaity );      // default size is still 26
         assert( q.front().equals( "A" ) );              // a A is the only element
-
+        q.dequeue();
+        
+        System.out.println( q.toString() );
+        
+        // TEST CASE #3 - FULL STACK
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        q.enqueue( "X" );
+        
+        assert( q.isFull() == true);
+        System.out.println( q.toString() );
+        
+        q.enqueue( "X" );                                           //Tries adding another item to already full queue
+        
+        q.makeEmpty();
+        assert( q.isEmpty() == true);
     }
 
 }

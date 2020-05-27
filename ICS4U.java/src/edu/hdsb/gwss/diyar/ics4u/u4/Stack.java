@@ -69,15 +69,18 @@ public class Stack {
 
         int n = 0;
 
-        for (int i = DEFAULT_SIZE; i > 0; i--) {
-            if (data[i - 1] == null) {
-            } else {
-                n = i;
-                i = 0;
+        if (!isFull()) {
+            for (int i = DEFAULT_SIZE; i > 0; i--) {
+                if (data[i - 1] == null) {
+                } else {
+                    n = i;
+                    i = 0;
+                }
             }
+
+            data[n] = value;
         }
 
-        data[n] = value;
     }
 
     /**
@@ -87,17 +90,17 @@ public class Stack {
      */
     public int size() {
 
-        int n = 0;
+        int itemsInStack = 0;
 
         for (int i = 0; i < DEFAULT_SIZE; i++) {
             if (data[i] != null) {
-                n++;
+                itemsInStack++;
             } else {
                 i = DEFAULT_SIZE;
             }
         }
 
-        return n;
+        return itemsInStack;
     }
 
     /**
@@ -143,17 +146,16 @@ public class Stack {
      * The Stack will be empty after this call.
      */
     public void makeEmpty() {
-        for (int i = DEFAULT_SIZE; i > 0; i--){
+        for (int i = DEFAULT_SIZE; i > 0; i--) {
             data[i - 1] = null;
         }
     }
 
 //This prints out the stack top down so I can test the data
-//    public void output(){
-//        System.out.println("NEW STACK");
-//        for (int i = DEFAULT_SIZE; i > 0; i--){
-//            System.out.println(data[i-1]);
-//        }
-//    }
-
+    public void output(){
+        System.out.println("NEW STACK");
+        for (int i = DEFAULT_SIZE; i > 0; i--){
+            System.out.println(data[i-1]);
+        }
+    }
 }

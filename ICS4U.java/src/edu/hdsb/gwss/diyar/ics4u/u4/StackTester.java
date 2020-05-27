@@ -40,7 +40,34 @@ public class StackTester {
         assert( stack.capacity() == initialCapcaity );      // default size is still 11
         assert( stack.peek() == 0 );                     // a ZERO is the only element
         
+        
         // ...continue test cases
+        
+        // TEST CASE #3 - FILL THE STACK
+        stack.push( 1 );
+        stack.push( 4 );
+        stack.push( 1 );
+        stack.push( 4 );
+        stack.push( 1 );
+        stack.push( 4 );
+        stack.push( 1 );
+        stack.push( 4 );
+        stack.push( 1 );
+        stack.push( 4 );
+        
+        stack.push( 3 );                                      // Adds more while stack is already full, nothing happens
+        
+        assert(stack.isFull() == true);                       // Stack is full
+        
+        stack.pop();
+
+        assert(stack.size() == 10);
+        
+        stack.makeEmpty();
+        
+        assert(stack.size() == 0);
+        assert(stack.isEmpty() == true);
+        
     }
     
 }

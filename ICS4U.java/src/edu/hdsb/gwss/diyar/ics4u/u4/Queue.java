@@ -32,13 +32,6 @@ public class Queue {
         this.back = -1;
         this.data = new String[initialCapacity];
     }
-//To test the queue by outputting the data
-
-    public void output() {
-        for (int i = 0; i < data.length; i++) {
-            System.out.println(data[i]);
-        }
-    }
 
     /**
      * Retrieves, but does not remove, the front of this queue, or returns null
@@ -63,7 +56,7 @@ public class Queue {
      */
     public String end() {
 
-        for (int i = data.length; i > 0; i--) {
+        for (int i = data.length - 1; i > 0; i--) {
             if (data[i] == null) {
 
             } else {
@@ -97,9 +90,12 @@ public class Queue {
     public String dequeue() {
 
         int size = size();
+
         String holder = data[size];
 
-        data[size] = null;
+        if (!isEmpty()) {
+            data[size - 1] = null;
+        }
 
         return holder;
     }
