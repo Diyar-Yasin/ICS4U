@@ -42,7 +42,28 @@ public class LinkedListTester {
         assert ( ll.size() == 0 );
         assert ( ll.isEmpty() );
         
-        // ...add more test cases
+        
+        System.out.println("CREATE LL: B --> A --> B --> C --> null");
+        ll.addAtFront("A");
+        ll.addAtFront("B");
+        ll.addAtEnd("B");
+        ll.addAtEnd("C");
+        
+        assert( ll.head().equals("B"));
+        assert( ll.tail().equals("C"));
+        assert( ll.size() == 4);
+        System.out.println( "DATA: " + ll.toString() );
+         
+        assert( ll.removeHead().equals("B"));
+        assert( ll.removeTail().equals("C"));
+        System.out.println( "DATA: " + ll.toString() );
+        
+        // MAKE EMPTY THEN PRINT
+        ll.makeEmpty();
+        assert( ll.head() == null );
+        assert( ll.tail() == null );
+        System.out.println( "DATA: " + ll.toString() );                          //Even though Head and Tail are null
+                                                                                 //they will always exist
     }
 
 }
